@@ -1,0 +1,49 @@
+ CREATE DATABASE `library_manag`
+
+ CREATE TABLE `book_rec` (
+  `Acc_No` int(11) NOT NULL,
+  `Title` varchar(80) NOT NULL,
+  `Author1` varchar(30) DEFAULT NULL,
+  `Author2` varchar(30) DEFAULT NULL,
+  `Author3` varchar(30) DEFAULT NULL,
+  `Pub_ID` varchar(12) NOT NULL,
+  `Genre` varchar(30) DEFAULT NULL,
+  `Pages` int(4) DEFAULT NULL,
+  `Price` decimal(5,2) DEFAULT NULL,
+  `Edition` varchar(12) DEFAULT NULL,
+  `status` char(15) DEFAULT 'Unissued',
+  PRIMARY KEY (`Acc_No`),
+  KEY `Pub_ID` (`Pub_ID`),
+  CONSTRAINT `book_rec_ibfk_1` FOREIGN KEY (`Pub_ID`) REFERENCES `publisher` (`Pub_ID`)
+);
+
+CREATE TABLE `issued_books` (
+  `Acc_No` int(11) NOT NULL,
+  `User_ID` varchar(11) NOT NULL,
+  `Issue_date` date NOT NULL,
+  `Return_date` date DEFAULT NULL,
+  KEY `User_ID` (`User_ID`),
+  KEY `Acc_No` (`Acc_No`),
+  CONSTRAINT `issued_books_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `user` (`User_ID`),
+  CONSTRAINT `issued_books_ibfk_2` FOREIGN KEY (`Acc_No`) REFERENCES `book_rec` (`Acc_No`)
+);
+
+CREATE TABLE `publisher` (
+  `Pub_ID` varchar(12) NOT NULL,
+  `pub_name` varchar(355) NOT NULL,
+  `Pub_city` char(20) DEFAULT NULL,
+  `pub_country` char(20) DEFAULT NULL,
+  `pub_contact_no` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`Pub_ID`)
+);
+
+CREATE TABLE `user` (
+  `User_ID` varchar(11) NOT NULL,
+  `User_Name` varchar(30) NOT NULL,
+  `User_Pwd` varchar(120) NOT NULL,
+  `Date_user_added` date DEFAULT NULL,
+  `Time_user_added` varchar(16) DEFAULT NULL,
+  `User_Phoneno` bigint(20) DEFAULT NULL,
+  `Issuer_address` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`User_ID`)
+);

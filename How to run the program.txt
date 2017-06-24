@@ -1,0 +1,6 @@
+-Make sure MySql and JRE is installed
+-Make sure MySql is running
+-set mySql password to null from root user
+-create database using commands give in "Database commands LMS"
+-Ener some sample data
+-execute run executable Version/Library_Management.jar
